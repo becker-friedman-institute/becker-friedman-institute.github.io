@@ -1,0 +1,11 @@
+title: Becker Friedman Institute
+description: >-
+  The Becker Friedman Institute for Economics at the University of Chicago
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
