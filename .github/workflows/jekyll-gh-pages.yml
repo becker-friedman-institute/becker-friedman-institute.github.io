@@ -31,9 +31,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Build with Jekyll
-        run: bundle exec jekyll build --trace
+        run: bundle exec jekyll build --trace --verbose --config _config.yml,_config_github.yml
         env:
           JEKYLL_ENV: production
+      - name: Debug site files
+        run: |
+          echo "Listing all files in _site directory:"
+          find _site -type f | sort
+          echo "Creating debug info file:"
+          echo "baseurl: $GITHUB_REPOSITORY" > _site/debug.txt
+          echo "repo name: $(basename $GITHUB_REPOSITORY)" >> _site/debug.txt
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

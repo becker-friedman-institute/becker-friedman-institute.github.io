@@ -6,6 +6,8 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
+    findutils \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Gemfile first (for better caching)
@@ -22,5 +24,17 @@ COPY . /app/
 
 EXPOSE 4000
 
+# Create an entrypoint script for debugging and serving
+RUN echo '#!/bin/bash\n\
+echo "Content of current directory:"\n\
+ls -la\n\
+echo ""\n\
+echo "Config file contents:"\n\
+cat _config.yml\n\
+echo ""\n\
+echo "Starting Jekyll server with baseurl=''"\n\
+bundle exec jekyll serve --host 0.0.0.0 --baseurl="" --verbose\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
 # Watch for changes and serve
-CMD ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0"]
+CMD ["/app/entrypoint.sh"]

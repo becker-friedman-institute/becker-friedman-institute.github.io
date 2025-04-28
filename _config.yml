@@ -2,7 +2,7 @@ title: Becker Friedman Institute
 description: >-
   The Becker Friedman Institute for Economics at the University of Chicago
 baseurl: ""
-url: ""
+url: "http://localhost:4000"
 
 # Build settings
 markdown: kramdown
